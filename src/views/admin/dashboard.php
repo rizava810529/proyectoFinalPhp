@@ -292,10 +292,31 @@ try {
                 <br>
                 <div id="clases" class="bg-white p-6 rounded-lg shadow">
                     <h2 class="text-2xl mb-4">Clases</h2>
-                    <form>
-                        <!-- Aquí puedes agregar tus campos de formulario -->
-                        <p>Esta es una página en blanco. Puedes agregar contenido personalizado aquí.</p>
-                    </form>
+                    <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border rounded-lg">
+        <thead class="bg-gray-200">
+            <tr>
+                <th class="px-4 py-2">ID de Usuario</th>
+                <th class="px-4 py-2">Clase</th>
+                <th class="px-4 py-2">Maestro</th>
+                <th class="px-4 py-2">Alumnos Inscritos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($resultados as $fila) {
+                echo "<tr>";
+                echo "<td class='border px-4 py-2'>" . $fila["usuario_id"] . "</td>";
+                echo "<td class='border px-4 py-2'>" . $fila["clase_nombre"] . "</td>";
+                echo "<td class='border px-4 py-2'>" . $fila["maestro"] . "</td>";
+                echo "<td class='border px-4 py-2'>" . $fila["alumnos_inscritos"] . "</td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
                 </div>
             </main>
 
