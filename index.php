@@ -1,29 +1,4 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Iniciar sesión</title>
-</head>
-<body>
-    <h1>login</h1>
-    <form method="post" action="/src/views/login.php">
-        <label for="email">Correo electrónico:</label>
-        <input type="email" name="correo" required><br>
 
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" name="contrasena" required><br>
-
-        <label for="rol">Selecciona tu rol:</label>
-        <select name="rol" required>
-            <option value="admin">Admin</option>
-            <option value="profesor">Profesor</option>
-            <option value="estudiante">Estudiante</option>
-        </select><br>
-
-        <input type="submit" value="Iniciar sesión">
-    </form>
-</body>
-</html>
- -->
 
  <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -106,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <select name="rol" id="role_id" class="form-control texto4" required>
                                             <!-- <option value="admin">Admin</option> -->
                                            
-                                            <option value="profesor">Profesor</option>
+                                            <option value="maestro">maestro</option>
                                             <option value="alumno">Alumno</option> <!-- Cambiamos "estudiante" a "alumno" -->
                                         </select>
                                     </div>
