@@ -24,8 +24,6 @@ try {
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -164,80 +162,130 @@ try {
 
                 <!-- Contenido de las secciones (dashboard, blank, tables, forms) aquí... -->
                 <div id="dashboard" class="bg-white p-6 rounded-lg shadow">
-                    <h2 class="text-2xl mb-4">Permisos</h2>
-                    <p>¡Bienvenido al panel de control! Selecciona la acción que quieras realizar del menú de la
-                        izquierda.</p>
-                </div>
+    <h2 class="text-2xl mb-4">Permisos</h2>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border rounded-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="px-4 py-2">Usuario ID</th>
+                    <th class="px-4 py-2">Nombre</th>
+                    <th class="px-4 py-2">Correo</th>
+                    <th class="px-4 py-2">Permiso (Rol)</th>
+                    <th class="px-4 py-2">Estado</th>
+                    <th class="px-4 py-2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($resultados as $fila) {
+                    echo "<tr>";
+                    echo "<td class='border px-4 py-2'>" . $fila["usuario_id"] . "</td>";
+                    echo "<td class='border px-4 py-2'>" . $fila["usuario_nombre"] . "</td>";
+                    echo "<td class='border px-4 py-2'>" . $fila["correo"] . "</td>";
+                    echo "<td class='border px-4 py-2'>" . $fila["rol"] . "</td>";
+                    echo "<td class='border px-4 py-2'>" . $fila["estado"] . "</td>";
+                    echo "<td class='border px-4 py-2'>
+                        <form method='post' action='src/controllers/actualizar_estado.php' class='flex items-center'>
+                            <input type='hidden' name='usuario_id' value='" . $fila["usuario_id"] . "'>
+                            <select name='nuevo_estado' class='mr-2 border rounded p-1'>
+                                <option value='activo'>Activo</option>
+                                <option value='inactivo'>Inactivo</option>
+                            </select>
+                            <button type='submit' class='bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-700'>Aplicar</button>
+                        </form>
+                    </td>";
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
                 <br>
+                <!-- ... (otros encabezados HTML) ... -->
+
                 <div id="blank" class="bg-white p-6 rounded-lg shadow">
-                    <h2 class="text-2xl mb-4">Maestros</h2>
+    <h2 class="text-2xl mb-4">Maestros</h2>
 
-                    <table class="min-w-full bg-white">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Fecha de nacimiento</th>
-                                <th>Direccion</th>
-                                <th>Rol</th>
-                                <th>Editar/Borrar</th>
-                                <!-- Agrega aquí las columnas adicionales que tengas en tu tabla -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($resultados as $fila) {
-                                // Verifica si el rol es "maestro" antes de imprimir el registro
-                                if ($fila["rol"] === "maestro") {
-                                    echo "<tr>";
-                                    echo "<td>" . $fila["usuario_id"] . "</td>"; // Cambia "ID" a "usuario_id"
-                                    echo "<td>" . $fila["usuario_nombre"] . "</td>";
-                                    echo "<td>" . $fila["fecha_nacimiento"] . "</td>";
-                                    echo "<td>" . $fila["direccion"] . "</td>";
-                                    echo "<td>" . $fila["rol"] . "</td>";
-                                    echo "<td><a href='editar.php?id=" . $fila["usuario_id"] . "'>Editar</a> / <a href='borrar.php?id=" . $fila["usuario_id"] . "'>Borrar</a></td>"; // Cambia "ID" a "usuario_id"
-                                    echo "</tr>";
-                                }
-                            }
-                                    ?>
-                        </tbody>
-                    </table>
-                </div>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border rounded-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="px-4 py-2">ID</th>
+                    <th class="px-4 py-2">Nombre</th>
+                    <th class="px-4 py-2">Fecha de nacimiento</th>
+                    <th class="px-4 py-2">Correo</th>
+                    <th class="px-4 py-2">Direccion</th>
+                    <th class="px-4 py-2">Rol</th>
+                    <th class="px-4 py-2">Editar/Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($resultados as $fila) {
+                    // Verifica si el rol es "maestro" antes de imprimir el registro
+                    if ($fila["rol"] === "maestro") {
+                        echo "<tr>";
+                        echo "<td class='border px-4 py-2'>" . $fila["usuario_id"] . "</td>";
+                        echo "<td class='border px-4 py-2'>" . $fila["usuario_nombre"] . "</td>";
+                        echo "<td class='border px-4 py-2'>" . $fila["fecha_nacimiento"] . "</td>";
+                        echo "<td class='border px-4 py-2'>" . $fila["correo"] . "</td>";
+                        echo "<td class='border px-4 py-2'>" . $fila["direccion"] . "</td>";
+                        echo "<td class='border px-4 py-2'>" . $fila["rol"] . "</td>";
+                        echo "<td class='border px-4 py-2'><a href='editar.php?id=" . $fila["usuario_id"] . "' class='text-blue-500 hover:underline'>Editar</a> / <a href='borrar.php?id=" . $fila["usuario_id"] . "' class='text-red-500 hover:underline'>Borrar</a></td>";
+                        echo "</tr>";
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
                 <br>
+
                 <div id="blank" class="bg-white p-6 rounded-lg shadow">
     <h2 class="text-2xl mb-4">Alumnos</h2>
 
-    <table class="min-w-full bg-white">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Fecha de nacimiento</th>
-                <th>Direccion</th>
-                <th>Rol</th>
-                <th>Editar/Borrar</th>
-                <!-- Agrega aquí las columnas adicionales que tengas en tu tabla -->
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($resultados as $fila) {
-                // Verifica si el rol es "alumno" antes de imprimir el registro
-                if ($fila["rol"] === "alumno") {
-                    echo "<tr>";
-                    echo "<td>" . $fila["usuario_id"] . "</td>"; // Cambia "ID" a "usuario_id"
-                    echo "<td>" . $fila["usuario_nombre"] . "</td>";
-                    echo "<td>" . $fila["fecha_nacimiento"] . "</td>";
-                    echo "<td>" . $fila["direccion"] . "</td>";
-                    echo "<td>" . $fila["rol"] . "</td>";
-                    echo "<td><a href='editar.php?id=" . $fila["usuario_id"] . "'>Editar</a> / <a href='borrar.php?id=" . $fila["usuario_id"] . "'>Borrar</a></td>"; // Cambia "ID" a "usuario_id"
-                    echo "</tr>";
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border rounded-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="px-4 py-2">ID</th>
+                    <th class="px-4 py-2">Nombre</th>
+                    <th class="px-4 py-2">Fecha de nacimiento</th>
+                    <th class="px-4 py-2">Correo</th>
+                    <th class="px-4 py-2">Dirección</th>
+                    <th class="px-4 py-2">Rol</th>
+                    <th class="px-4 py-2">Editar/Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($resultados as $fila) {
+                    // Verifica si el rol es "alumno" antes de imprimir el registro
+                    if ($fila["rol"] === "alumno") {
+                        echo "<tr>";
+                        echo "<td class='border px-4 py-2'>" . $fila["usuario_id"] . "</td>";
+                        echo "<td class='border px-4 py-2'>" . $fila["usuario_nombre"] . "</td>";
+                        echo "<td class='border px-4 py-2'>" . $fila["fecha_nacimiento"] . "</td>";
+                        echo "<td class='border px-4 py-2'>" . $fila["correo"] . "</td>";
+                        echo "<td class='border px-4 py-2'>" . $fila["direccion"] . "</td>";
+                        echo "<td class='border px-4 py-2'>" . $fila["rol"] . "</td>";
+                        echo "<td class='border px-4 py-2'>
+                            <a href='editar.php?id=" . $fila["usuario_id"] . "' class='text-blue-500 hover:underline'>Editar</a> /
+                            <a href='borrar.php?id=" . $fila["usuario_id"] . "' class='text-red-500 hover:underline'>Borrar</a>
+                        </td>";
+                        echo "</tr>";
+                    }
                 }
-            }
-            ?>
-        </tbody>
-    </table>
+                ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 
