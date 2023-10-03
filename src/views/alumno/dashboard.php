@@ -150,6 +150,35 @@ try {
                 <div id="dashboard" class="bg-white p-6 rounded-lg shadow">
                     <h2 class="text-2xl mb-4">Ver calificaciones</h2>
 
+                    <div class="container mx-auto p-8">
+                        <h1 class="text-3xl font-semibold mb-6">Tabla de Usuarios</h1>
+                        <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
+                            <thead class="bg-gray-800 text-white">
+                                <tr>
+                                    <th class="w-1/6 py-2 px-4 border">Usuario ID</th>
+                                    <th class="w-2/6 py-2 px-4 border">Usuario Nombre</th>
+                                    <th class="w-1/6 py-2 px-4 border">Calificación</th>
+                                    <th class="w-1/6 py-2 px-4 border">Mensajes</th>
+                                    
+                                </tr>
+
+
+                            </thead>
+                            <tbody>
+                                <!-- Aquí puedes agregar filas de usuarios con tus propios datos -->
+                                <!-- Ejemplo de fila vacía -->
+                                <tr>
+                                    <td class="py-2 px-4 border"></td>
+                                    <td class="py-2 px-4 border"></td>
+                                    <td class="py-2 px-4 border"></td>
+                                    <td class="py-2 px-4 border"></td>
+                                   
+                                </tr>
+                                <!-- Puedes agregar más filas similares según tus necesidades -->
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
 
 
@@ -157,6 +186,103 @@ try {
 
                 <div id="blank" class="bg-white p-6 rounded-lg shadow">
                     <h2 class="text-2xl mb-4">Administrar clase</h2>
+
+
+                    <form action="editar_registro.php" method="POST">
+                                <!-- Campo de Correo Electrónico -->
+                                <div class="mb-4">
+                                    <label for="correo" class="block text-gray-700 font-medium">Correo
+                                        Electrónico</label>
+                                    <input type="email" id="correo" name="correo"
+                                        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+                                        required>
+                                </div>
+
+                                <!-- Campo de Contraseña -->
+                                <div class="mb-4">
+                                    <label for="contrasena" class="block text-gray-700 font-medium">Contraseña</label>
+                                    <input type="password" id="contrasena" name="contrasena"
+                                        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+                                        required>
+                                </div>
+
+                                <!-- Campo de Nombre -->
+                                <div class="mb-4">
+                                    <label for="usuario_nombre" class="block text-gray-700 font-medium">Nombre</label>
+                                    <input type="text" id="usuario_nombre" name="usuario_nombre"
+                                        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+                                        required>
+                                </div>
+
+                                <!-- Campo de Apellido -->
+                                <div class="mb-4">
+                                    <label for="apellido" class="block text-gray-700 font-medium">Apellido</label>
+                                    <input type="text" id="apellido" name="apellido"
+                                        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+                                        required>
+                                </div>
+
+                                <!-- Campo de Dirección -->
+                                <div class="mb-4">
+                                    <label for="direccion" class="block text-gray-700 font-medium">Dirección</label>
+                                    <input type="text" id="direccion" name="direccion"
+                                        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+                                        required>
+                                </div>
+                                <br>
+
+                                <!-- Campo de Fecha de Nacimiento -->
+                                <div class="mb-4">
+                                    <label for="fecha_nacimiento" class="block text-gray-700 font-medium">Fecha de
+                                        Nacimiento</label>
+                                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento"
+                                        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+                                        required>
+                                </div>
+                                <!-- Campo de Selección de Materias (Selección Múltiple) -->
+                                <div class="mb-4">
+                                    <label for="materias" class="block text-gray-700 font-medium">Inscribir materias (Selecciona
+                                        múltiples manteniendo presionada la tecla Ctrl)</label>
+                                    <select id="materias" name="materias[]" multiple
+                                        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:border-blue-500">
+                                        <?php
+                                    // Conecta a la base de datos y consulta las materias
+                                    try {
+                                        $servername = "localhost";
+                                        $username = "root";
+                                        $password = "";
+                                        $database = "proyecto_final";
+
+                                        // Crear una conexión PDO
+                                        $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+
+                                        // Establecer el modo de error de PDO a excepción
+                                        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                                        $sql = "SELECT id, nombre FROM materias";
+                                        $stmt = $pdo->prepare($sql);
+                                        $stmt->execute();
+
+                                        // Itera sobre las materias y crea las opciones del select
+                                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                            $idMateria = $row['id'];
+                                            $nombreMateria = $row['nombre'];
+                                            echo "<option value=\"$idMateria\">$nombreMateria</option>";
+                                        }
+                                    } catch (PDOException $e) {
+                                        echo "Error en la conexión a la base de datos: " . $e->getMessage();
+                                    }
+                                    ?>
+                                    </select>
+                                </div>
+
+                                <br>
+                                <!-- Botón de Enviar -->
+                                <div class="mt-6">
+                                    <button type="submit" value="Guardar Cambios"
+                                        class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Guardar cambios</button>
+                                </div>
+                            </form>
 
                 </div>
 

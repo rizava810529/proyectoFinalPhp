@@ -1,6 +1,4 @@
-
-
- <?php
+<?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $db_host = "localhost";
     $db_user = "root";
@@ -47,63 +45,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <title>crear-usuario</title>
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
+
     <link href="index.css" rel="stylesheet" />
+    <link href="/dist/output.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="d-flex flex-column justify-content-center align-items-center">
-        <div style="width: 800px; height:auto; " class="m-5 d-flex flex-column">
-            <div class="container mt-5">
-                <div class="row justify-content-center">
-                    <div class="col-md-6 gap-5">
-                        <div class="card  line">
-                            <div class="card-body">
-                                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                                    <div class="form-group m-3 inputDiv ">
-                                        <img src="../../asset/correo.png" alt="" style="width: 20px; height: 20px; ">
-                                        <input type="correo" name="correo" id="correo" class="form-control texto4"
-                                            placeholder="correo" required>
-                                    </div>
-                                    <div class="form-group m-3 inputDiv">
-                                        <img src="../../asset/candado.png" alt="" style="width: 20px; height: 20px; ">
-                                        <input type="contrasena" name="contrasena" id="contrasena"
-                                            placeholder="contrasena" class="form-control texto4" required>
-                                    </div>
-                                    <!-- Agregamos el campo de selección de rol -->
-                                    <p>Haz clic para seleccionar tu rol</p>
-                                    <div class="form-group m-3 inputDiv">
-                                        <select name="rol" id="role_id" class="form-control texto4" required>
-                                            <!-- <option value="admin">Admin</option> -->
-                                           
-                                            <option value="maestro">maestro</option>
-                                            <option value="alumno">Alumno</option> <!-- Cambiamos "estudiante" a "alumno" -->
-                                        </select>
-                                    </div>
-                                    <div class="text-center m-3">
-                                        <button type="submit" class="btn btn-primary btn-block texto4">Iniciar sesión</button>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
+    <div class="py-16">
+        <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+            <div class="hidden lg:block  h-200">
+                <img src="assets/logo.jpg" alt="" srcset="">
+            </div>
+            <div class="w-full p-8 lg:w-200">
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="border-b w-1/5 lg:w-1/4"></span>
+                    <a href="#" class="text-xs text-center text-gray-500 uppercase">WELCOME</a>
+                    <span class="border-b w-1/5 lg:w-1/4"></span>
+                </div>                
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="mx-auto w-3/4 mt-2">
+                    <div class="mb-6">
+                        <input type="email" name="correo" id="correo" class="w-full p-3 rounded border bg-gray-100"
+                            placeholder="Correo" required>
                     </div>
+                    <div class="mb-6">
+                        <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña"
+                            class="w-full p-3 rounded border bg-gray-100" required>
+                    </div>
+                    <!-- Agregamos el campo de selección de rol -->
+                    <p class="mb-2">Haz clic para seleccionar tu rol</p>
+                    <div class="mb-6">
+                        <select name="rol" id="role_id" class="w-full p-3 rounded border bg-gray-100" required>
+                            <!-- <option value="admin">Admin</option> -->
+                            <option value="maestro">Maestro</option>
+                            <option value="alumno">Alumno</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit"
+                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full">
+                            Crear Usuario
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="border-b w-1/5 md:w-1/4"></span>
+                    <a href="/src/models/login_view.php" class="text-xs text-gray-500 uppercase">or sign up</a>
+                    <span class="border-b w-1/5 md:w-1/4"></span>
                 </div>
             </div>
         </div>
     </div>
-    <div style="width: 900px; height:auto; " class="contenido">
-        <div class=" d-flex justify-content-center align-items-center texto4">
-            <p>¿Ya eres miembro? <a href="/src/models/login_view.php">Iniciar sesión</a></p>
-        </div>
-    </div>
-    <!-- MDB -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
 </body>
-
-</html>

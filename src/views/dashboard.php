@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    
 </head>
 <body>
     <h1>Dashboard</h1>
@@ -22,13 +23,13 @@
             exit();
         }
         if($user_data["role_id"] === 3){
-            echo "<h2>¡Hola estudiante!</h2>";
+            echo "<h2>¡Hola alumno!</h2>";
             header("Location: /src/views/alumno/dashboard.php");
             exit();
         }
     } else {
         // Si el usuario no está autenticado, puedes redirigirlo a la página de inicio de sesión
-        header("Location: /ruta/a/tu/pagina/de/login.php");
+        header("Location: /index.php");
         exit();
     }
     ?>

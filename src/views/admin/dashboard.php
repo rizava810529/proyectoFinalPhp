@@ -247,7 +247,7 @@ try {
 
                 <br>
 
-                <div id="blank" class="bg-white p-6 rounded-lg shadow">
+                <div id="alumnos" class="bg-white p-6 rounded-lg shadow">
     <h2 class="text-2xl mb-4">Alumnos</h2>
 
     <div class="overflow-x-auto">
@@ -288,34 +288,66 @@ try {
     </div>
 </div>
 
-
+<!-- clases -->
                 <br>
                 <div id="clases" class="bg-white p-6 rounded-lg shadow">
                     <h2 class="text-2xl mb-4">Clases</h2>
-                    <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border rounded-lg">
-        <thead class="bg-gray-200">
-            <tr>
-                <th class="px-4 py-2">ID de Usuario</th>
-                <th class="px-4 py-2">Clase</th>
-                <th class="px-4 py-2">Maestro</th>
-                <th class="px-4 py-2">Alumnos Inscritos</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($resultados as $fila) {
-                echo "<tr>";
-                echo "<td class='border px-4 py-2'>" . $fila["usuario_id"] . "</td>";
-                echo "<td class='border px-4 py-2'>" . $fila["clase_nombre"] . "</td>";
-                echo "<td class='border px-4 py-2'>" . $fila["maestro"] . "</td>";
-                echo "<td class='border px-4 py-2'>" . $fila["alumnos_inscritos"] . "</td>";
-                echo "</tr>";
+                    <div class="max-w-3xl mx-auto bg-white rounded shadow p-4">
+        <h1 class="text-2xl font-semibold mb-4">Maestros y Clases</h1>
+        <?php
+        try {
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $database = "proyecto_final";
+
+            // Crear una conexión PDO
+            $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+
+            // Establecer el modo de error de PDO a excepción
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Consulta SQL para seleccionar datos de la tabla "clases"
+            $sql = "SELECT c.clase_id, c.nombre_clase, u.usuario_nombre
+                    FROM clases c
+                    INNER JOIN usuarios u ON c.maestro_id = u.usuario_id";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+
+            // Obtener resultados
+            $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (count($resultados) > 0) {
+                echo '<table class="table-auto border-collapse w-full">';
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th class="border border-gray-400 px-4 py-2">ID de Clase</th>';
+                echo '<th class="border border-gray-400 px-4 py-2">Nombre de Clase</th>';
+                echo '<th class="border border-gray-400 px-4 py-2">Maestro</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
+
+                foreach ($resultados as $fila) {
+                    echo '<tr>';
+                    echo '<td class="border border-gray-400 px-4 py-2">' . $fila["clase_id"] . '</td>';
+                    echo '<td class="border border-gray-400 px-4 py-2">' . $fila["nombre_clase"] . '</td>';
+                    echo '<td class="border border-gray-400 px-4 py-2">' . $fila["usuario_nombre"] . '</td>';
+                    echo '</tr>';
+                }
+
+                echo '</tbody>';
+                echo '</table>';
+            } else {
+                echo '<p class="text-red-500">No se encontraron clases.</p>';
             }
-            ?>
-        </tbody>
-    </table>
-</div>
+        } catch (PDOException $e) {
+            echo "Error en la conexión a la base de datos: " . $e->getMessage();
+        }
+        ?>
+    </div>
+
 
                 </div>
             </main>
