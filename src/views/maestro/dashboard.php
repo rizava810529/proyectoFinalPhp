@@ -213,7 +213,6 @@ try {
 
 
 
-
 <?php
 try {
     $servername = "localhost";
@@ -235,6 +234,9 @@ try {
 } catch (PDOException $e) {
     echo "Error en la conexión a la base de datos: " . $e->getMessage();
 }
+
+// Mostrar los datos recibidos por POST para verificar
+var_dump($_POST);
 ?>
 
 <div id="dashboard" class="bg-white p-6 border rounded-lg shadow">
@@ -264,48 +266,57 @@ try {
                     </div>
                 </div>
             </div>
-
-            <!-- Contenedor de la tabla de usuarios (anteriormente alumnos) -->
-            <div id="usuarios-table" class="container mx-auto p-8">
-                <h1 class="text-3xl font-semibold mb-6">Tabla de Usuarios</h1>
-                <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
-                    <thead class="bg-gray-800 text-white">
-                        <tr>
-                            <th class="w-1/6 py-2 px-4 border">Usuario ID</th>
-                            <th class="w-2/6 py-2 px-4 border">Usuario Nombre</th>
-                            <th class="w-1/6 py-2 px-4 border">Calificación</th>
-                            <!-- Puedes agregar más columnas aquí según la estructura de tu tabla usuarios -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        if (isset($_POST['materias'])) {
-                            $selectedMateria = $_POST['materias'];
-                            // Realiza una consulta SQL para obtener los usuarios 
-                            $sqlUsuarios = "SELECT usuario_id, usuario_nombre, calificacion FROM usuarios WHERE materia_id = :materia";
-                            $stmtUsuarios = $pdo->prepare($sqlUsuarios);
-                            $stmtUsuarios->bindParam(':materia', $selectedMateria);
-                            $stmtUsuarios->execute();
-                            $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
-
-                            // Generar filas de la tabla de usuarios (anteriormente alumnos)
-                            foreach ($usuarios as $usuario) {
-                                echo "<tr>";
-                                echo "<td>" . $usuario['usuario_id'] . "</td>";
-                                echo "<td>" . $usuario['usuario_nombre'] . "</td>";
-                                echo "<td>" . $usuario['calificacion'] . "</td>";
-                                // Puedes agregar más columnas aquí según la estructura de tu tabla usuarios
-                                echo "</tr>";
-                            }
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>
 
+<!-- Contenedor de la tabla de usuarios (anteriormente "alumnos") -->
+<div id="usuarios-table" class="container mx-auto p-8">
+    <h1 class="text-3xl font-semibold mb-6">Tabla de Usuarios</h1>
+    <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
+        <thead class="bg-gray-800 text-white">
+            <tr>
+                <th class="w-1/6 py-2 px-4 border">Usuario ID</th>
+                <th class="w-2/6 py-2 px-4 border">Usuario Nombre</th>
+                <th class="w-1/6 py-2 px-4 border">Calificación</th>
+                <!-- Puedes agregar más columnas aquí según la estructura de tu tabla usuarios -->
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if (isset($_POST['materias'])) {
+                $selectedMateria = $_POST['materias'];
+                try {
+                    // Realiza una consulta SQL para obtener los usuarios 
+                    $sqlUsuarios = "SELECT usuario_id, usuario_nombre, calificacion FROM usuarios WHERE materia_id = :materia";
+                    $stmtUsuarios = $pdo->prepare($sqlUsuarios);
+                    $stmtUsuarios->bindParam(':materia', $selectedMateria);
+                    $stmtUsuarios->execute();
+                    $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
+
+                    // Agrega var_dump para verificar los datos
+                    var_dump($_POST);
+                    var_dump($usuarios);
+
+                    // Generar filas de la tabla de usuarios (anteriormente "alumnos")
+                    foreach ($usuarios as $usuario) {
+                        echo "<tr>";
+                        echo "<td>" . $usuario['usuario_id'] . "</td>";
+                        echo "<td>" . $usuario['usuario_nombre'] . "</td>";
+                        echo "<td>" . $usuario['calificacion'] . "</td>";
+                        // Puedes agregar más columnas aquí según la estructura de tu tabla usuarios
+                        echo "</tr>";
+                    }
+                } catch (PDOException $e) {
+                    echo "Error en la consulta: " . $e->getMessage();
+                }
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+            <!-- Contenedor
 
 
 
