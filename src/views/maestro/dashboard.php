@@ -244,7 +244,7 @@ var_dump($_POST);
         <div class="flex justify-between space-x-4">
             <div>
                 <div class="flex justify-between space-x-4">
-                    <h2 class="text-2xl mb-4">Alumnos de la clase</h2>
+                    <h2 class="text-2xl mb-4">Mensajes de la clase</h2>
                     <div class="flex justify-between space-x-4 text-2xl mb-4">
                         <form method="post">
                             <div class="w-64">
@@ -259,6 +259,9 @@ var_dump($_POST);
                                         $selected = ($_POST['materias'] == $materia) ? 'selected' : '';
                                         echo "<option value='$materia' $selected>$materia</option>";
                                     }
+                                    echo "<pre>";
+                                    var_dump($_POST['materias']);
+                                    echo "</pre>";
                                     ?>
                                 </select>
                             </div>
@@ -270,16 +273,16 @@ var_dump($_POST);
     </div>
 </div>
 
-<!-- Contenedor de la tabla de usuarios (anteriormente "alumnos") -->
-<div id="usuarios-table" class="container mx-auto p-8">
-    <h1 class="text-3xl font-semibold mb-6">Tabla de Usuarios</h1>
+<!-- Contenedor de la tabla de mensajes -->
+<div id="mensajes-table" class="container mx-auto p-8">
+    <h1 class="text-3xl font-semibold mb-6">Tabla de Mensajes</h1>
     <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
         <thead class="bg-gray-800 text-white">
             <tr>
-                <th class="w-1/6 py-2 px-4 border">Usuario ID</th>
-                <th class="w-2/6 py-2 px-4 border">Usuario Nombre</th>
-                <th class="w-1/6 py-2 px-4 border">Calificación</th>
-                <!-- Puedes agregar más columnas aquí según la estructura de tu tabla usuarios -->
+                <th class="w-1/6 py-2 px-4 border">Mensaje ID</th>
+                <th class="w-2/6 py-2 px-4 border">Contenido</th>
+                <th class="w-1/6 py-2 px-4 border">Fecha de Envío</th>
+                <!-- Puedes agregar más columnas aquí según la estructura de tu tabla mensajes -->
             </tr>
         </thead>
         <tbody>
@@ -287,24 +290,25 @@ var_dump($_POST);
             if (isset($_POST['materias'])) {
                 $selectedMateria = $_POST['materias'];
                 try {
-                    // Realiza una consulta SQL para obtener los usuarios 
-                    $sqlUsuarios = "SELECT usuario_id, usuario_nombre, calificacion FROM usuarios WHERE materia_id = :materia";
-                    $stmtUsuarios = $pdo->prepare($sqlUsuarios);
-                    $stmtUsuarios->bindParam(':materia', $selectedMateria);
-                    $stmtUsuarios->execute();
-                    $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
+                    // Realiza una consulta SQL para obtener los mensajes de los usuarios
+                    $sqlMensajes = "SELECT mensaje_id, contenido, fecha_envio FROM mensajes JOIN usuarios ON mensajes.usuario_id = usuarios.usuario_id WHERE usuarios.materia_id = :materia";
+                    $stmtMensajes = $pdo->prepare($sqlMensajes);
+                    $stmtMensajes->bindParam(':materia', $selectedMateria);
+                    $stmtMensajes->execute();
+                    $mensajes = $stmtMensajes->fetchAll(PDO::FETCH_ASSOC);
 
-                    // Agrega var_dump para verificar los datos
+                    echo "<pre>";
                     var_dump($_POST);
-                    var_dump($usuarios);
+                    var_dump($mensajes);
+                    echo "</pre>";
 
-                    // Generar filas de la tabla de usuarios (anteriormente "alumnos")
-                    foreach ($usuarios as $usuario) {
+                    // Generar filas de la tabla de mensajes
+                    foreach ($mensajes as $mensaje) {
                         echo "<tr>";
-                        echo "<td>" . $usuario['usuario_id'] . "</td>";
-                        echo "<td>" . $usuario['usuario_nombre'] . "</td>";
-                        echo "<td>" . $usuario['calificacion'] . "</td>";
-                        // Puedes agregar más columnas aquí según la estructura de tu tabla usuarios
+                        echo "<td>" . $mensaje['mensaje_id'] . "</td>";
+                        echo "<td>" . $mensaje['contenido'] . "</td>";
+                        echo "<td>" . $mensaje['fecha_envio'] . "</td>";
+                        // Puedes agregar más columnas aquí según la estructura de tu tabla mensajes
                         echo "</tr>";
                     }
                 } catch (PDOException $e) {
@@ -315,6 +319,7 @@ var_dump($_POST);
         </tbody>
     </table>
 </div>
+
 
             <!-- Contenedor
 
