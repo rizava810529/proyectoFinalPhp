@@ -128,100 +128,192 @@ try {
                 <br>
 
                 <!-- Contenido de las secciones (dashboard, blank, tables, forms) aquí... -->
-                <div id="dashboard" class="bg-white p-6 border rounded-lg shadow">
-                    <div>
-                        <div class="flex justify-between space-x-4">
-                            <?php
-                            
-                            try {
-                                // Consulta para obtener la lista de materias desde la tabla "materias"
-                                $sqlMaterias = "SELECT nombre FROM materias";
-                                $stmtMaterias = $pdo->prepare($sqlMaterias);
-                                $stmtMaterias->execute();
-                                $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
-                            } catch (PDOException $e) {
-                                echo "Error en la conexión a la base de datos: " . $e->getMessage();
-                            }
-                            ?>
-                            <div>
-                                <div class="flex justify-between space-x-4">
-                                    <h2 class="text-2xl mb-4">Alumnos de la clase</h2>
-                                    <div
-                                        class="flex justify-between space-x-4 text-2xl mb-4">
-                                        <form method="post">
-                                            <div class="w-64">
-                                                <label for="materias"
-                                                    class="block text-gray-700 font-bold">Selecciona una
-                                                    materia:</label>
-                                                <select id="materias" name="materias"
-                                                    class="block w-full mt-2 px-4 py-2 border border-gray-300 bg-white rounded-md focus:outline-none focus:border-blue-500"
-                                                    onchange="buscarAlumnos()">
-                                                    <?php
-                                                       // Consulta para obtener la lista de materias desde la tabla "materias"
-                                                        $sqlMaterias = "SELECT nombre FROM materias";
-                                                        $stmtMaterias = $pdo->prepare($sqlMaterias);
-                                                        $stmtMaterias->execute();
-                                                        $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
+                <?php
+try {
+    // Conexión a la base de datos
+    $pdo = new PDO("mysql:host=localhost;dbname=proyecto_final", "root", "");
 
-                                                        // Generar opciones
-                                                        foreach ($materias as $materia) {
-                                                            echo "<option value='$materia'>$materia</option>";
-                                                        }
-                                                    
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+    // Consulta para obtener la lista de materias desde la tabla "materias"
+    $sqlMaterias = "SELECT nombre FROM materias";
+    $stmtMaterias = $pdo->prepare($sqlMaterias);
+    $stmtMaterias->execute();
+    $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
+    echo "Error en la conexión a la base de datos: " . $e->getMessage();
+}
+?>
+<?php
+try {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "proyecto_final";
+    
+    // Crear una conexión PDO
+    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+    
+    // Establecer el modo de error de PDO a excepción
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Consulta para obtener la lista de materias desde la tabla "materias"
+    $sqlMaterias = "SELECT nombre FROM materias";
+    $stmtMaterias = $pdo->prepare($sqlMaterias);
+    $stmtMaterias->execute();
+    $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
+    echo "Error en la conexión a la base de datos: " . $e->getMessage();
+}
+?>
+<?php
+try {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "proyecto_final";
+    
+    // Crear una conexión PDO
+    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+    
+    // Establecer el modo de error de PDO a excepción
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Consulta para obtener la lista de materias desde la tabla "materias"
+    $sqlMaterias = "SELECT nombre FROM materias";
+    $stmtMaterias = $pdo->prepare($sqlMaterias);
+    $stmtMaterias->execute();
+    $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
+    echo "Error en la conexión a la base de datos: " . $e->getMessage();
+}
+?>
+
+<?php
+try {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "proyecto_final";
+    
+    // Crear una conexión PDO
+    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+    
+    // Establecer el modo de error de PDO a excepción
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Consulta para obtener la lista de materias desde la tabla "materias"
+    $sqlMaterias = "SELECT nombre FROM materias";
+    $stmtMaterias = $pdo->prepare($sqlMaterias);
+    $stmtMaterias->execute();
+    $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
+    echo "Error en la conexión a la base de datos: " . $e->getMessage();
+}
+?>
+<!-- yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy -->
+
+
+
+
+<?php
+try {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "proyecto_final";
+    
+    // Crear una conexión PDO
+    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+    
+    // Establecer el modo de error de PDO a excepción
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Consulta para obtener la lista de materias desde la tabla "materias"
+    $sqlMaterias = "SELECT nombre FROM materias";
+    $stmtMaterias = $pdo->prepare($sqlMaterias);
+    $stmtMaterias->execute();
+    $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
+    echo "Error en la conexión a la base de datos: " . $e->getMessage();
+}
+?>
+
+<div id="dashboard" class="bg-white p-6 border rounded-lg shadow">
+    <div>
+        <div class="flex justify-between space-x-4">
+            <div>
+                <div class="flex justify-between space-x-4">
+                    <h2 class="text-2xl mb-4">Alumnos de la clase</h2>
+                    <div class="flex justify-between space-x-4 text-2xl mb-4">
+                        <form method="post">
+                            <div class="w-64">
+                                <label for="materias" class="block text-gray-700 font-bold">Selecciona una
+                                    materia:</label>
+                                <select id="materias" name="materias"
+                                    class="block w-full mt-2 px-4 py-2 border border-gray-300 bg-white rounded-md focus:outline-none focus:border-blue-500"
+                                    onchange="this.form.submit()">
+                                    <?php
+                                    // Generar opciones
+                                    foreach ($materias as $materia) {
+                                        $selected = ($_POST['materias'] == $materia) ? 'selected' : '';
+                                        echo "<option value='$materia' $selected>$materia</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
-
-                            <!-- Contenedor de la tabla de alumnos (se actualizará con AJAX) -->
-                            <div id="alumnos-table" class="container mx-auto p-8">
-                                <h1 class="text-3xl font-semibold mb-6">Tabla de Alumnos</h1>
-                                <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
-                                    <thead class="bg-gray-800 text-white">
-                                        <tr>
-                                            <th class="w-1/6 py-2 px-4 border">Usuario ID</th>
-                                            <th class="w-2/6 py-2 px-4 border">Usuario Nombre</th>
-                                            <th class="w-1/6 py-2 px-4 border">Calificación</th>
-                                            <th class="w-1/6 py-2 px-4 border">Mensajes</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Aquí se mostrarán los alumnos relacionados con la materia seleccionada -->
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- script de AJAX para buscar alumnos -->
-                            <script>
-                                function buscarAlumnos() {
-                                    // Obtener el valor seleccionado en el campo de materias
-                                    var selectedMateria = document.getElementById("materias").value;
-
-                                    // Realizar una solicitud AJAX para obtener los alumnos de la materia seleccionada
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "obtener_alumnos.php", //  PHP para manejar esta solicitud
-                                        data: {
-                                            materia: selectedMateria
-                                        }, // Envía el nombre de la materia seleccionada
-                                        success: function (response) {
-                                            // Actualiza la tabla de alumnos con los datos recibidos
-                                            $("#alumnos-table tbody").html(response);
-                                        }
-                                    });
-                                }
-
-                                // Llama a buscarAlumnos cuando se carga la página para mostrar los alumnos iniciales
-                                $(document).ready(function () {
-                                    buscarAlumnos();
-                                });
-                            </script>
-                        </div>
+                        </form>
                     </div>
                 </div>
+            </div>
+
+            <!-- Contenedor de la tabla de usuarios (anteriormente alumnos) -->
+            <div id="usuarios-table" class="container mx-auto p-8">
+                <h1 class="text-3xl font-semibold mb-6">Tabla de Usuarios</h1>
+                <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="w-1/6 py-2 px-4 border">Usuario ID</th>
+                            <th class="w-2/6 py-2 px-4 border">Usuario Nombre</th>
+                            <th class="w-1/6 py-2 px-4 border">Calificación</th>
+                            <!-- Puedes agregar más columnas aquí según la estructura de tu tabla usuarios -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if (isset($_POST['materias'])) {
+                            $selectedMateria = $_POST['materias'];
+                            // Realiza una consulta SQL para obtener los usuarios 
+                            $sqlUsuarios = "SELECT usuario_id, usuario_nombre, calificacion FROM usuarios WHERE materia_id = :materia";
+                            $stmtUsuarios = $pdo->prepare($sqlUsuarios);
+                            $stmtUsuarios->bindParam(':materia', $selectedMateria);
+                            $stmtUsuarios->execute();
+                            $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
+
+                            // Generar filas de la tabla de usuarios (anteriormente alumnos)
+                            foreach ($usuarios as $usuario) {
+                                echo "<tr>";
+                                echo "<td>" . $usuario['usuario_id'] . "</td>";
+                                echo "<td>" . $usuario['usuario_nombre'] . "</td>";
+                                echo "<td>" . $usuario['calificacion'] . "</td>";
+                                // Puedes agregar más columnas aquí según la estructura de tu tabla usuarios
+                                echo "</tr>";
+                            }
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy -->
+
+
                 <br>
 
                 <div id="blank" class="bg-white p-6 rounded-lg shadow">
