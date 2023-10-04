@@ -273,7 +273,7 @@ var_dump($_POST);
     </div>
 </div>
 
-<!-- Contenedor de la tabla de mensajes -->
+<<!-- Contenedor de la tabla de mensajes -->
 <div id="mensajes-table" class="container mx-auto p-8">
     <h1 class="text-3xl font-semibold mb-6">Tabla de Mensajes</h1>
     <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
@@ -282,6 +282,7 @@ var_dump($_POST);
                 <th class="w-1/6 py-2 px-4 border">Mensaje ID</th>
                 <th class="w-2/6 py-2 px-4 border">Contenido</th>
                 <th class="w-1/6 py-2 px-4 border">Fecha de Envío</th>
+                <th class="w-1/6 py-2 px-4 border">Usuario Nombre</th> <!-- Nueva columna -->
                 <!-- Puedes agregar más columnas aquí según la estructura de tu tabla mensajes -->
             </tr>
         </thead>
@@ -291,7 +292,7 @@ var_dump($_POST);
                 $selectedMateria = $_POST['materias'];
                 try {
                     // Realiza una consulta SQL para obtener los mensajes de los usuarios
-                    $sqlMensajes = "SELECT mensaje_id, contenido, fecha_envio FROM mensajes JOIN usuarios ON mensajes.usuario_id = usuarios.usuario_id WHERE usuarios.materia_id = :materia";
+                    $sqlMensajes = "SELECT mensajes.mensaje_id, mensajes.contenido, mensajes.fecha_envio, usuarios.usuario_nombre FROM mensajes JOIN usuarios ON mensajes.usuario_id = usuarios.usuario_id WHERE usuarios.materia_id = :materia";
                     $stmtMensajes = $pdo->prepare($sqlMensajes);
                     $stmtMensajes->bindParam(':materia', $selectedMateria);
                     $stmtMensajes->execute();
@@ -308,6 +309,7 @@ var_dump($_POST);
                         echo "<td>" . $mensaje['mensaje_id'] . "</td>";
                         echo "<td>" . $mensaje['contenido'] . "</td>";
                         echo "<td>" . $mensaje['fecha_envio'] . "</td>";
+                        echo "<td>" . $mensaje['usuario_nombre'] . "</td>"; // Mostrar el nombre del usuario
                         // Puedes agregar más columnas aquí según la estructura de tu tabla mensajes
                         echo "</tr>";
                     }
@@ -321,7 +323,8 @@ var_dump($_POST);
 </div>
 
 
-            <!-- Contenedor
+
+<!-- Contenedor
 
 
 
