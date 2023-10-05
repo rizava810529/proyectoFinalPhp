@@ -162,22 +162,22 @@ try {
 
                 <!-- Contenido de las secciones (dashboard, blank, tables, forms) aquí... -->
                 <div id="dashboard" class="bg-white p-6 rounded-lg shadow">
-    <h2 class="text-2xl mb-4">Permisos</h2>
+                    <h2 class="text-2xl mb-4">Permisos</h2>
 
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border rounded-lg">
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="px-4 py-2">Usuario ID</th>
-                    <th class="px-4 py-2">Nombre</th>
-                    <th class="px-4 py-2">Correo</th>
-                    <th class="px-4 py-2">Permiso (Rol)</th>
-                    <th class="px-4 py-2">Estado</th>
-                    <th class="px-4 py-2">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border rounded-lg">
+                            <thead class="bg-gray-200">
+                                <tr>
+                                    <th class="px-4 py-2">Usuario ID</th>
+                                    <th class="px-4 py-2">Nombre</th>
+                                    <th class="px-4 py-2">Correo</th>
+                                    <th class="px-4 py-2">Permiso (Rol)</th>
+                                    <th class="px-4 py-2">Estado</th>
+                                    <th class="px-4 py-2">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
                 foreach ($resultados as $fila) {
                     echo "<tr>";
                     echo "<td class='border px-4 py-2'>" . $fila["usuario_id"] . "</td>";
@@ -198,33 +198,35 @@ try {
                     echo "</tr>";
                 }
                 ?>
-            </tbody>
-        </table>
-    </div>
-</div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
                 <br>
+                <!-- rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr -->
+                <!-- maestros                 -->
                 <!-- ... (otros encabezados HTML) ... -->
 
                 <div id="blank" class="bg-white p-6 rounded-lg shadow">
-    <h2 class="text-2xl mb-4">Maestros</h2>
-
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border rounded-lg">
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="px-4 py-2">ID</th>
-                    <th class="px-4 py-2">Nombre</th>
-                    <th class="px-4 py-2">Fecha de nacimiento</th>
-                    <th class="px-4 py-2">Correo</th>
-                    <th class="px-4 py-2">Direccion</th>
-                    <th class="px-4 py-2">Rol</th>
-                    <th class="px-4 py-2">Editar/Borrar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($resultados as $fila) {
+                    <h2 class="text-2xl mb-4">Maestros</h2>
+                    <!-- rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr-->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border rounded-lg">
+                            <thead class="bg-gray-200">
+                                <tr>
+                                    <th class="px-4 py-2">ID</th>
+                                    <th class="px-4 py-2">Nombre</th>
+                                    <th class="px-4 py-2">Fecha de nacimiento</th>
+                                    <th class="px-4 py-2">Correo</th>
+                                    <th class="px-4 py-2">Direccion</th>
+                                    <th class="px-4 py-2">Rol</th>
+                                    <th class="px-4 py-2">Editar/Borrar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                    foreach ($resultados as $fila) {
                     // Verifica si el rol es "maestro" antes de imprimir el registro
                     if ($fila["rol"] === "maestro") {
                         echo "<tr>";
@@ -234,67 +236,117 @@ try {
                         echo "<td class='border px-4 py-2'>" . $fila["correo"] . "</td>";
                         echo "<td class='border px-4 py-2'>" . $fila["direccion"] . "</td>";
                         echo "<td class='border px-4 py-2'>" . $fila["rol"] . "</td>";
-                        echo "<td class='border px-4 py-2'><a href='editar.php?id=" . $fila["usuario_id"] . "' class='text-blue-500 hover:underline'>Editar</a> / <a href='borrar.php?id=" . $fila["usuario_id"] . "' class='text-red-500 hover:underline'>Borrar</a></td>";
+                        echo "<td class='border px-4 py-2'><a href='editar.php?id=" . $fila["usuario_id"] . "' class='text-blue-500 hover:underline'>Actualizar</a> / <a href='borrar.php?id=" . $fila["usuario_id"] . "' class='text-red-500 hover:underline'>Eliminar</a></td>";
                         echo "</tr>";
                     }
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-                <br>
-
-                <div id="alumnos" class="bg-white p-6 rounded-lg shadow">
-    <h2 class="text-2xl mb-4">Alumnos</h2>
-
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border rounded-lg">
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="px-4 py-2">ID</th>
-                    <th class="px-4 py-2">Nombre</th>
-                    <th class="px-4 py-2">Fecha de nacimiento</th>
-                    <th class="px-4 py-2">Correo</th>
-                    <th class="px-4 py-2">Dirección</th>
-                    <th class="px-4 py-2">Rol</th>
-                    <th class="px-4 py-2">Editar/Borrar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($resultados as $fila) {
-                    // Verifica si el rol es "alumno" antes de imprimir el registro
-                    if ($fila["rol"] === "alumno") {
-                        echo "<tr>";
-                        echo "<td class='border px-4 py-2'>" . $fila["usuario_id"] . "</td>";
-                        echo "<td class='border px-4 py-2'>" . $fila["usuario_nombre"] . "</td>";
-                        echo "<td class='border px-4 py-2'>" . $fila["fecha_nacimiento"] . "</td>";
-                        echo "<td class='border px-4 py-2'>" . $fila["correo"] . "</td>";
-                        echo "<td class='border px-4 py-2'>" . $fila["direccion"] . "</td>";
-                        echo "<td class='border px-4 py-2'>" . $fila["rol"] . "</td>";
-                        echo "<td class='border px-4 py-2'>
-                            <a href='editar.php?id=" . $fila["usuario_id"] . "' class='text-blue-500 hover:underline'>Editar</a> /
-                            <a href='borrar.php?id=" . $fila["usuario_id"] . "' class='text-red-500 hover:underline'>Borrar</a>
-                        </td>";
-                        echo "</tr>";
                     }
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-</div>
+                    ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr -->
 
-<!-- clases -->
-                <br>
-                <div id="clases" class="bg-white p-6 rounded-lg shadow">
-                    <h2 class="text-2xl mb-4">Clases</h2>
-                    <div class="max-w-3xl mx-auto bg-white rounded shadow p-4">
-        <h1 class="text-2xl font-semibold mb-4">Maestros y Clases</h1>
-        <?php
+                <!-- crear maestro  -->
+
+                <div>
+
+                    <div class="container mx-auto mt-8">
+                        <h2 class="text-2xl font-bold mb-4">Agregar Nuevo Maestro</h2>
+                        <form action="agregar_maestro.php" method="POST"
+                            class="max-w-md bg-white shadow-md rounded px-8 pt-6        pb-8 mb-4 mx-auto">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre">Nombre:</label>
+                                <input
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="nombre" name="nombre" type="text" placeholder="Nombre" required>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="fecha_nacimiento">Fecha
+                                    de nacimiento:</label>
+                                <input
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="fecha_nacimiento" name="fecha_nacimiento" type="date" required>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="correo">Correo:</label>
+                                <input
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="correo" name="correo" type="email" placeholder="Correo" required>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2"
+                                    for="direccion">Dirección:</label>
+                                <input
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="direccion" name="direccion" type="text" placeholder="Dirección" required>
+                            </div>
+                            <!-- Agrega más campos según tus necesidades -->
+
+                            <div class="mb-4">
+                                <button
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    type="submit">Agregar Maestro</button>
+                            </div>
+                    </div>
+
+                    <br>
+                    <!-- alumnos -->
+                    <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+                    <div id="alumnos" class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-2xl mb-4">Alumnos</h2>
+
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border rounded-lg">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="px-4 py-2">ID</th>
+                                        <th class="px-4 py-2">Nombre</th>
+                                        <th class="px-4 py-2">Fecha de nacimiento</th>
+                                        <th class="px-4 py-2">Correo</th>
+                                        <th class="px-4 py-2">Dirección</th>
+                                        <th class="px-4 py-2">Rol</th>
+                                        <th class="px-4 py-2">Editar/Borrar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                foreach ($resultados as $fila) {
+                                // Verifica si el rol es "alumno" antes de imprimir el registro
+                                if ($fila["rol"] === "alumno") {
+                                    echo "<tr>";
+                                    echo "<td class='border px-4 py-2'>" . $fila["usuario_id"] . "</td>";
+                                    echo "<td class='border px-4 py-2'>" . $fila["usuario_nombre"] . "</td>";
+                                    echo "<td class='border px-4 py-2'>" . $fila["fecha_nacimiento"] . "</td>";
+                                    echo "<td class='border px-4 py-2'>" . $fila["correo"] . "</td>";
+                                    echo "<td class='border px-4 py-2'>" . $fila["direccion"] . "</td>";
+                                    echo "<td class='border px-4 py-2'>" . $fila["rol"] . "</td>";
+                                    echo "<td class='border px-4 py-2'>
+                                        <a href='editar_alumno.php?id=" . $fila["usuario_id"] . "' class='text-blue-500 hover:underline'>Actualizar</a> / ";
+                                    
+                                    // Mostrar el mensaje de confirmación de eliminación
+                                    echo "<a href='eliminar_usuario.php?id=" . $fila["usuario_id"] . "' class='text-red-500 hover:underline'>Borrar</a>";
+                                    
+                                    echo "</td>";
+                                    echo "</tr>";
+                                    }
+                                    }
+                                ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+
+                    <!-- cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc -->
+                    <!-- clases -->
+                    <br>
+                    <div id="clases" class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-2xl mb-4">Clases</h2>
+                        <div class="max-w-3xl mx-auto bg-white rounded shadow p-4">
+                            <h1 class="text-2xl font-semibold mb-4">Maestros y Clases</h1>
+                            <?php
         try {
             $servername = "localhost";
             $username = "root";
@@ -346,30 +398,135 @@ try {
             echo "Error en la conexión a la base de datos: " . $e->getMessage();
         }
         ?>
-    </div>
+                        </div>
+                        <br><br><br><br>
 
+                        <!-- jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj -->
 
-                </div>
-            </main>
+                        <body class="bg-gray-100 font-sans">
+                            <div class="container mx-auto p-4">
+                                <h2 class="text-2xl font-bold mb-4">Crear nuevas materias</h2>
+                                <!-- Tu tabla de materias aquí -->
+                                <a href="crear_materia.php"
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear
+                                </a>
+                            </div>
+                        </body>
+                        <!-- jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj -->
 
-            <footer class="w-full bg-white text-right p-4">
-                <p>Footer</p>
-            </footer>
-        </div>
-    </div>
+                        <br><br><br><br>
+                        <!-- mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
+                        <?php
+                                try {
+                                    $servername = "localhost";
+                                    $username = "root";
+                                    $password = "";
+                                    $database = "proyecto_final";
 
-    <!-- AlpineJS -->
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
-        integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
-    <!-- ChartJS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-        integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+                                    // Crear una conexión PDO
+                                    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
 
-    <script>
-    // Agrega tus scripts de ChartJS aquí
-    </script>
+                                    // Establecer el modo de error de PDO a excepción
+                                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                                    // Consulta SQL para obtener todas las materias
+                                    $sql_materias = "SELECT * FROM materias";
+                                    $stmt_materias = $pdo->prepare($sql_materias);
+                                    $stmt_materias->execute();
+                                    $materias = $stmt_materias->fetchAll(PDO::FETCH_ASSOC);
+                                } catch (PDOException $e) {
+                                    echo "Error en la conexión a la base de datos: " . $e->getMessage();
+                                }
+                        ?>
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Tailwind CSS y PHP</title>
+                            <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+                                rel="stylesheet">
+                        </head>
+
+                        <body class="bg-gray-100 font-sans">
+                            <div class="container mx-auto p-4">
+                                <h2 class="text-2xl font-bold mb-4">Lista de Materias</h2>
+                                <div class="bg-white shadow-md rounded-lg overflow-x-auto">
+                                    <table class="min-w-full bg-white">
+                                        <thead>
+                                            <tr>
+                                                <th
+                                                    class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                                    ID</th>
+                                                <th
+                                                    class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                                    Nombre de la Materia</th>
+                                                <th
+                                                    class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                                    Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($materias as $materia) : ?>
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                    <?= $materia['id']; ?>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                    <?= $materia['nombre']; ?>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                    <a href="editar_materia.php?id=<?= $materia['id']; ?>"
+                                                        class="text-blue-500 hover:underline">Editar</a> |
+                                                    <a href="borrar_materia.php?id=<?= $materia['id']; ?>"
+                                                        class="text-red-500 hover:underline">Borrar</a>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <br><br><br><br>
+
+                        </html>
+
+</body>
+
+</html>
+
+<!-- mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
+
+</div>
+</main>
+
+<footer class="w-full bg-white text-right p-4">
+    <p>Footer</p>
+</footer>
+</div>
+</div>
+
+<!-- AlpineJS -->
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<!-- Font Awesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+    integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+<!-- ChartJS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+    integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+
+<script>
+// Agrega tus scripts de ChartJS aquí
+</script>
+
+<!-- mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
+<br><br>
+
+<!-- mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
+
 </body>
 
 </html>

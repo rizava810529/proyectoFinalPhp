@@ -239,91 +239,107 @@ try {
 var_dump($_POST);
 ?>
 
-<div id="dashboard" class="bg-white p-6 border rounded-lg shadow">
-    <div>
-        <div class="flex justify-between space-x-4">
-            <div>
-                <div class="flex justify-between space-x-4">
-                    <h2 class="text-2xl mb-4">Mensajes de la clase</h2>
-                    <div class="flex justify-between space-x-4 text-2xl mb-4">
-                        <form method="post">
-                            <div class="w-64">
-                                <label for="materias" class="block text-gray-700 font-bold">Selecciona una
-                                    materia:</label>
-                                <select id="materias" name="materias"
-                                    class="block w-full mt-2 px-4 py-2 border border-gray-300 bg-white rounded-md focus:outline-none focus:border-blue-500"
-                                    onchange="this.form.submit()">
-                                    <?php
-                                    // Generar opciones
-                                    foreach ($materias as $materia) {
-                                        $selected = ($_POST['materias'] == $materia) ? 'selected' : '';
-                                        echo "<option value='$materia' $selected>$materia</option>";
-                                    }
-                                    echo "<pre>";
-                                    var_dump($_POST['materias']);
-                                    echo "</pre>";
-                                    ?>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<<!-- Contenedor de la tabla de mensajes -->
-<div id="mensajes-table" class="container mx-auto p-8">
-    <h1 class="text-3xl font-semibold mb-6">Tabla de Mensajes</h1>
-    <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
-        <thead class="bg-gray-800 text-white">
-            <tr>
-                <th class="w-1/6 py-2 px-4 border">Mensaje ID</th>
-                <th class="w-2/6 py-2 px-4 border">Contenido</th>
-                <th class="w-1/6 py-2 px-4 border">Fecha de Envío</th>
-                <th class="w-1/6 py-2 px-4 border">Usuario Nombre</th> <!-- Nueva columna -->
-                <!-- Puedes agregar más columnas aquí según la estructura de tu tabla mensajes -->
-            </tr>
-        </thead>
-        <tbody>
+<div id="dashboard" class="bg-white p-6 border rounded-lg shadow"> 
+<form method="POST" action="">
+        <label for="subject">Selecciona una materia:</label>
+        <select name="subject" id="subject">
             <?php
-            if (isset($_POST['materias'])) {
-                $selectedMateria = $_POST['materias'];
-                try {
-                    // Realiza una consulta SQL para obtener los mensajes de los usuarios
-                    $sqlMensajes = "SELECT mensajes.mensaje_id, mensajes.contenido, mensajes.fecha_envio, usuarios.usuario_nombre FROM mensajes JOIN usuarios ON mensajes.usuario_id = usuarios.usuario_id WHERE usuarios.materia_id = :materia";
-                    $stmtMensajes = $pdo->prepare($sqlMensajes);
-                    $stmtMensajes->bindParam(':materia', $selectedMateria);
-                    $stmtMensajes->execute();
-                    $mensajes = $stmtMensajes->fetchAll(PDO::FETCH_ASSOC);
+            // Establece tu conexión a la base de datos aquí
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $database = "proyecto_final";
 
-                    echo "<pre>";
-                    var_dump($_POST);
-                    var_dump($mensajes);
-                    echo "</pre>";
+            try {
+                $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
 
-                    // Generar filas de la tabla de mensajes
-                    foreach ($mensajes as $mensaje) {
-                        echo "<tr>";
-                        echo "<td>" . $mensaje['mensaje_id'] . "</td>";
-                        echo "<td>" . $mensaje['contenido'] . "</td>";
-                        echo "<td>" . $mensaje['fecha_envio'] . "</td>";
-                        echo "<td>" . $mensaje['usuario_nombre'] . "</td>"; // Mostrar el nombre del usuario
-                        // Puedes agregar más columnas aquí según la estructura de tu tabla mensajes
-                        echo "</tr>";
-                    }
-                } catch (PDOException $e) {
-                    echo "Error en la consulta: " . $e->getMessage();
+                // Construye la consulta SQL para obtener las materias
+                $sqlMaterias = "SELECT id, nombre FROM materias";
+
+                // Ejecuta la consulta y obtén las materias
+                $stmtMaterias = $pdo->query($sqlMaterias);
+                $materias = $stmtMaterias->fetchAll(PDO::FETCH_ASSOC);
+
+                // Genera opciones del select con las materias
+                foreach ($materias as $materia) {
+                    echo "<option value='" . $materia['id'] . "'>" . $materia['nombre'] . "</option>";
                 }
+            } catch (PDOException $e) {
+                echo "Error en la conexión a la base de datos: " . $e->getMessage();
             }
             ?>
-        </tbody>
-    </table>
+        </select>
+        <input type="submit" value="Seleccionar">
+    </form>
+
+    <!-- Contenedor de la tabla de mensajes -->
+    <div id="mensajes-table" class="container mx-auto p-8">
+        <h1 class="text-3xl font-semibold mb-6">Tabla de Mensajes</h1>
+        <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
+            <thead class="bg-gray-800 text-white">
+                <tr>
+                    <th class="w-1/6 py-2 px-4 border">Mensaje ID</th>
+                    <th class="w-2/6 py-2 px-4 border">Contenido</th>
+                    <th class="w-1/6 py-2 px-4 border">Fecha de Envío</th>
+                    <th class="w-1/6 py-2 px-4 border">Usuario ID</th> <!-- Nueva columna -->
+                    <th class="w-1/6 py-2 px-4 border">Usuario Nombre</th> <!-- Nueva columna -->
+                    <th class="w-1/6 py-2 px-4 border">Calificación</th> <!-- Nueva columna -->
+                    <th class="w-1/6 py-2 px-4 border">Mensaje</th> <!-- Nueva columna -->
+                    <th class="w-1/6 py-2 px-4 border">Acciones (Enviar)</th> <!-- Nueva columna -->
+                    <!-- Puedes agregar más columnas aquí según sea necesario -->
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Comprueba si se ha enviado un tema
+                if (isset($_POST['subject'])) {
+                    $selectedSubject = $_POST['subject'];
+                    try {
+                        // Realiza una consulta SQL para obtener los mensajes relacionados con la materia seleccionada
+                        $sqlMessages = "SELECT message_id, content, sent_date, user_id, user_name, calificacion FROM messages WHERE subject_id = :subject_id";
+
+                        // Prepara y ejecuta la consulta
+                        $stmtMessages = $pdo->prepare($sqlMessages);
+                        $stmtMessages->bindParam(':subject_id', $selectedSubject);
+                        $stmtMessages->execute();
+                        $messages = $stmtMessages->fetchAll(PDO::FETCH_ASSOC);
+
+                        // Mostrar el valor de $_POST['subject'] usando var_dump
+                        echo "Valor de \$_POST['subject']: ";
+                        var_dump($_POST['subject']);
+
+                        // Genera filas de la tabla de mensajes
+                        foreach ($messages as $message) {
+                            echo "<tr>";
+                            echo "<td>" . $message['message_id'] . "</td>";
+                            echo "<td>" . $message['content'] . "</td>";
+                            echo "<td>" . $message['sent_date'] . "</td>";
+                            echo "<td>" . $message['user_id'] . "</td>";
+                            echo "<td>" . $message['user_name'] . "</td>";
+                            echo "<td>" . $message['calificacion'] . "</td>";
+                            echo "<td><input type='text' name='mensaje'></td>"; // Agregar un campo para enviar mensaje
+                            echo "<td><button>Enviar</button></td>"; // Agregar un botón para enviar el mensaje
+                            // Puedes agregar más columnas aquí según la estructura de tu tabla mensajes
+                            echo "</tr>";
+                        }
+                    } catch (PDOException $e) {
+                        echo "Error en la consulta: " . $e->getMessage();
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+<!-- hhhh -->
 </div>
-
-
-
 <!-- Contenedor
 
 
