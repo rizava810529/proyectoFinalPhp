@@ -1,25 +1,4 @@
-<?php
-// Conexión a la base de datos 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "proyecto_final";
 
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Verificar si se ha enviado el formulario con una materia seleccionada
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $materiaSeleccionada = $_POST["materias"];
-    } else {
-        // Si no se ha seleccionado una materia, establece un valor predeterminado (puedes cambiarlo según tus necesidades)
-        $materiaSeleccionada = "Materia1";
-    }
-} catch (PDOException $e) {
-    echo "Error en la conexión a la base de datos: " . $e->getMessage();
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -126,221 +105,88 @@ try {
                 <p>¡Bienvenido al panel de control! Selecciona la acción que quieras realizar del menú de la izquierda.
                 </p>
                 <br>
-
-                <!-- Contenido de las secciones (dashboard, blank, tables, forms) aquí... -->
-                <?php
-try {
-    // Conexión a la base de datos
-    $pdo = new PDO("mysql:host=localhost;dbname=proyecto_final", "root", "");
-
-    // Consulta para obtener la lista de materias desde la tabla "materias"
-    $sqlMaterias = "SELECT nombre FROM materias";
-    $stmtMaterias = $pdo->prepare($sqlMaterias);
-    $stmtMaterias->execute();
-    $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
-} catch (PDOException $e) {
-    echo "Error en la conexión a la base de datos: " . $e->getMessage();
-}
-?>
-<?php
-try {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "proyecto_final";
-    
-    // Crear una conexión PDO
-    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-    
-    // Establecer el modo de error de PDO a excepción
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Consulta para obtener la lista de materias desde la tabla "materias"
-    $sqlMaterias = "SELECT nombre FROM materias";
-    $stmtMaterias = $pdo->prepare($sqlMaterias);
-    $stmtMaterias->execute();
-    $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
-} catch (PDOException $e) {
-    echo "Error en la conexión a la base de datos: " . $e->getMessage();
-}
-?>
-<?php
-try {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "proyecto_final";
-    
-    // Crear una conexión PDO
-    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-    
-    // Establecer el modo de error de PDO a excepción
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Consulta para obtener la lista de materias desde la tabla "materias"
-    $sqlMaterias = "SELECT nombre FROM materias";
-    $stmtMaterias = $pdo->prepare($sqlMaterias);
-    $stmtMaterias->execute();
-    $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
-} catch (PDOException $e) {
-    echo "Error en la conexión a la base de datos: " . $e->getMessage();
-}
-?>
-
-<?php
-try {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "proyecto_final";
-    
-    // Crear una conexión PDO
-    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-    
-    // Establecer el modo de error de PDO a excepción
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Consulta para obtener la lista de materias desde la tabla "materias"
-    $sqlMaterias = "SELECT nombre FROM materias";
-    $stmtMaterias = $pdo->prepare($sqlMaterias);
-    $stmtMaterias->execute();
-    $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
-} catch (PDOException $e) {
-    echo "Error en la conexión a la base de datos: " . $e->getMessage();
-}
-?>
-<!-- yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy -->
-
-
-
-<?php
-try {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "proyecto_final";
-    
-    // Crear una conexión PDO
-    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-    
-    // Establecer el modo de error de PDO a excepción
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Consulta para obtener la lista de materias desde la tabla "materias"
-    $sqlMaterias = "SELECT nombre FROM materias";
-    $stmtMaterias = $pdo->prepare($sqlMaterias);
-    $stmtMaterias->execute();
-    $materias = $stmtMaterias->fetchAll(PDO::FETCH_COLUMN);
-} catch (PDOException $e) {
-    echo "Error en la conexión a la base de datos: " . $e->getMessage();
-}
-
-// Mostrar los datos recibidos por POST para verificar
-var_dump($_POST);
-?>
+<!-- yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy -->
+        
 
 <div id="dashboard" class="bg-white p-6 border rounded-lg shadow"> 
-<form method="POST" action="">
-        <label for="subject">Selecciona una materia:</label>
-        <select name="subject" id="subject">
+<?php
+try {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "proyecto_final";
+    
+    // Crear una conexión PDO
+    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+    
+    // Establecer el modo de error de PDO a excepción
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // Consulta SQL para obtener los alumnos que tienen clase con el maestro
+    $maestro_id = 3; // Reemplaza con el ID del maestro que deseas consultar
+$sql = "SELECT usuario_id, usuario_nombre, calificacion
+       FROM usuarios
+       WHERE maestro_id = :maestro_id AND rol = 'alumnos'";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':maestro_id', $maestro_id, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    $alumnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error en la conexión a la base de datos: " . $e->getMessage();
+    die();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alumnos del Maestro</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mx-auto mt-8">
+    <h1 class="text-2xl font-bold mb-4">Alumnos del Maestro</h1>
+
+    <table class="min-w-full table-auto">
+        <thead>
+            <tr>
+                <th class="px-4 py-2">ID</th>
+                <th class="px-4 py-2">Nombre del Alumno</th>
+                <th class="px-4 py-2">Calificación</th>
+                <th class="px-4 py-2">Mensaje</th>
+                <th class="px-4 py-2">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
             <?php
-            // Establece tu conexión a la base de datos aquí
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $database = "proyecto_final";
-
-            try {
-                $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-
-                // Construye la consulta SQL para obtener las materias
-                $sqlMaterias = "SELECT id, nombre FROM materias";
-
-                // Ejecuta la consulta y obtén las materias
-                $stmtMaterias = $pdo->query($sqlMaterias);
-                $materias = $stmtMaterias->fetchAll(PDO::FETCH_ASSOC);
-
-                // Genera opciones del select con las materias
-                foreach ($materias as $materia) {
-                    echo "<option value='" . $materia['id'] . "'>" . $materia['nombre'] . "</option>";
+            foreach ($alumnos as $alumno) {
+                echo "<tr>";
+                echo "<td class='border px-4 py-2'>" . $alumno["usuario_id"] . "</td>";
+                echo "<td class='border px-4 py-2'>" . $alumno["usuario_nombre"] . "</td>";
+                echo "<td class='border px-4 py-2'>" . $alumno["calificacion"] . "</td>";
+                
+                // Verificar si la clave 'contenido' existe en el array
+                if (array_key_exists("contenido", $alumno)) {
+                    echo "<td class='border px-4 py-2'>" . $alumno["contenido"] . "</td>";
+                } else {
+                    echo "<td class='border px-4 py-2'>Sin contenido</td>";
                 }
-            } catch (PDOException $e) {
-                echo "Error en la conexión a la base de datos: " . $e->getMessage();
+                
+                echo "<td class='border px-4 py-2'><button class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Enviar Mensaje</button></td>";
+                echo "</tr>";
             }
             ?>
-        </select>
-        <input type="submit" value="Seleccionar">
-    </form>
-
-    <!-- Contenedor de la tabla de mensajes -->
-    <div id="mensajes-table" class="container mx-auto p-8">
-        <h1 class="text-3xl font-semibold mb-6">Tabla de Mensajes</h1>
-        <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
-            <thead class="bg-gray-800 text-white">
-                <tr>
-                    <th class="w-1/6 py-2 px-4 border">Mensaje ID</th>
-                    <th class="w-2/6 py-2 px-4 border">Contenido</th>
-                    <th class="w-1/6 py-2 px-4 border">Fecha de Envío</th>
-                    <th class="w-1/6 py-2 px-4 border">Usuario ID</th> <!-- Nueva columna -->
-                    <th class="w-1/6 py-2 px-4 border">Usuario Nombre</th> <!-- Nueva columna -->
-                    <th class="w-1/6 py-2 px-4 border">Calificación</th> <!-- Nueva columna -->
-                    <th class="w-1/6 py-2 px-4 border">Mensaje</th> <!-- Nueva columna -->
-                    <th class="w-1/6 py-2 px-4 border">Acciones (Enviar)</th> <!-- Nueva columna -->
-                    <!-- Puedes agregar más columnas aquí según sea necesario -->
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Comprueba si se ha enviado un tema
-                if (isset($_POST['subject'])) {
-                    $selectedSubject = $_POST['subject'];
-                    try {
-                        // Realiza una consulta SQL para obtener los mensajes relacionados con la materia seleccionada
-                        $sqlMessages = "SELECT message_id, content, sent_date, user_id, user_name, calificacion FROM messages WHERE subject_id = :subject_id";
-
-                        // Prepara y ejecuta la consulta
-                        $stmtMessages = $pdo->prepare($sqlMessages);
-                        $stmtMessages->bindParam(':subject_id', $selectedSubject);
-                        $stmtMessages->execute();
-                        $messages = $stmtMessages->fetchAll(PDO::FETCH_ASSOC);
-
-                        // Mostrar el valor de $_POST['subject'] usando var_dump
-                        echo "Valor de \$_POST['subject']: ";
-                        var_dump($_POST['subject']);
-
-                        // Genera filas de la tabla de mensajes
-                        foreach ($messages as $message) {
-                            echo "<tr>";
-                            echo "<td>" . $message['message_id'] . "</td>";
-                            echo "<td>" . $message['content'] . "</td>";
-                            echo "<td>" . $message['sent_date'] . "</td>";
-                            echo "<td>" . $message['user_id'] . "</td>";
-                            echo "<td>" . $message['user_name'] . "</td>";
-                            echo "<td>" . $message['calificacion'] . "</td>";
-                            echo "<td><input type='text' name='mensaje'></td>"; // Agregar un campo para enviar mensaje
-                            echo "<td><button>Enviar</button></td>"; // Agregar un botón para enviar el mensaje
-                            // Puedes agregar más columnas aquí según la estructura de tu tabla mensajes
-                            echo "</tr>";
-                        }
-                    } catch (PDOException $e) {
-                        echo "Error en la consulta: " . $e->getMessage();
-                    }
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-
-
-
-
-
-
-
-
-<!-- hhhh -->
+        </tbody>
+    </table>
 </div>
-<!-- Contenedor
+
+</body>
+</html>
+
+
 
 
 

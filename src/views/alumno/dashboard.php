@@ -181,46 +181,100 @@ try {
 
                     <body>
                         <div id="dashboard" class="bg-white p-6 rounded-lg shadow">
-                            <h2 class="text-2xl mb-4">Ver calificaciones</h2>
-                            <div class="container mx-auto p-8">
-                                <h1 class="text-3xl font-semibold mb-6">Tabla de Usuarios</h1>
-                                <table class="min-w-full bg-white rounded-lg shadow overflow-hidden border border-gray-300">
-                                    <thead class="bg-gray-800 text-white">
-                                        <tr>
-                                            <th class="w-1/6 py-2 px-4 border">Usuario ID</th>
-                                            <th class="w-2/6 py-2 px-4 border">Usuario Nombre</th>
-                                            <th class="w-1/6 py-2 px-4 border">Calificación</th>
-                                            <th class="w-1/6 py-2 px-4 border">Mensajes</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        // Iterar a través de los resultados de la consulta
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                                echo "<tr>";
-                                                echo "<td class='py-2 px-4 border'>" . $row["usuario_id"] . "</td>";
-                                                echo "<td class='py-2 px-4 border'>" . $row["usuario_nombre"] . "</td>";
-                                                echo "<td class='py-2 px-4 border'>" . $row["calificacion"] . "</td>";
-                                                echo "<td class='py-2 px-4 border'></td>"; 
-                                                echo "</tr>";
-                                            }
-                                        } else {
-                                            echo "<tr><td colspan='4'>No se encontraron usuarios.</td></tr>";
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </body>
+                            
+<!-- eeeeeeeeeeeeeeeeeeeeeeeeeeee -->
+<?php
+try {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "proyecto_final";
 
-                </html>
+    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                <?php
-// Cerrar la conexión a la base de datos
-                $conn->close();
-            ?>
+    // Consulta todas las clases registradas
+    $consulta = $pdo->query("SELECT * FROM clases");
+    $clases = $consulta->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error en la conexión a la base de datos: " . $e->getMessage();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Dashboard</title>
+</head>
+<body class="bg-gray-200">
+    <div class="container mx-auto mt-5">
+        <h1 class="text-2xl font-semibold mb-3">Dashboard</h1>
+        <h2 class="text-xl font-semibold mb-3">Clases Registradas</h2>
+        <table class="table-auto">
+            <thead>
+                <tr>
+                    <th class="border px-4 py-2">ID</th>
+                    <th class="border px-4 py-2">Nombre de la Clase</th>
+                    <th class="border px-4 py-2">ID del Maestro</th>
+                    <th class="border px-4 py-2">ID de la Materia</th>
+                    <th class="border px-4 py-2">Editar</th>
+                    <th class="border px-4 py-2">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($clases as $clase) { ?>
+                    <tr>
+                        <td class="border px-4 py-2"><?php echo $clase['clase_id']; ?></td>
+                        <td class="border px-4 py-2"><?php echo $clase['nombre_clase']; ?></td>
+                        <td class="border px-4 py-2"><?php echo $clase['maestro_id']; ?></td>
+                        <td class="border px-4 py-2"><?php echo $clase['materia_id']; ?></td>
+                        <td class="border px-4 py-2">
+                            <a href="editar_clase.php?id=<?php echo $clase['clase_id']; ?>" class="text-blue-500 hover:underline">Editar</a>
+                        </td>
+                        <td class="border px-4 py-2">
+                            <a href="eliminar_clase.php?id=<?php echo $clase['clase_id']; ?>" class="text-red-500 hover:underline">Eliminar</a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<!-- cccccccccccccccccccccccccccccccccccccccccccccccccccccc -->
+
+
+
+<!-- ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc -->
+
+
+
+<body class="bg-gray-200">
+    <div class="container mx-auto mt-5">
+        <h1 class="text-2xl font-semibold mb-3">Registrar Clase</h1>
+        <form action="registrar_clase.php" method="POST">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre_clase">Nombre de la Clase</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nombre_clase" name="nombre_clase" type="text" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="maestro_id">ID del Maestro</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="maestro_id" name="maestro_id" type="number">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="materia_id">ID de la Materia</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="materia_id" name="materia_id" type="number">
+            </div>
+            <div class="mb-4">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Registrar Clase</button>
+            </div>
+        </form>
+    </div>
+</body>
+<br><br><br><br>
 
 
 
@@ -342,6 +396,31 @@ try {
                 <script>
                 // Agrega tus scripts de ChartJS aquí
                 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>

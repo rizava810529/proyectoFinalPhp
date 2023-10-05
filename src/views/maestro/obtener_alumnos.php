@@ -22,7 +22,7 @@ $materiaSeleccionada = $_POST["materia"];
 // Realiza una consulta para obtener los alumnos de esa materia
 $sql = "SELECT usuario_id, usuario_nombre, calificacion
         FROM usuarios
-        WHERE rol = 'alumnos' AND materia_id IN (SELECT id FROM materias WHERE nombre = :materia)";
+        WHERE rol = 'alumnos' AND materia_id IN (SELECT id FROM materias WHERE nombre = :historia)";
 
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(":materia", $materiaSeleccionada);
